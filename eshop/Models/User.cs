@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace eshop.Models
 {
-    internal class User
+    internal abstract class User
     {
         internal int id = 0;
         private string lastname = "";
@@ -94,12 +94,20 @@ namespace eshop.Models
         /// </summary>
         /// <param name="name"></param>
         /// <returns>если аргумент FullName, то Фамилия Имя Отчество, в остальных случаях - Фамилия И.О.</returns>
-        private string FormatName(string name) => name == FullName ? $"{lastname} {firstname} {patronymic}"
+        public string FormatName(string name) => name == FullName ? $"{lastname} {firstname} {patronymic}"
             : $"{lastname} {firstname.Substring(0, 1)}. {patronymic.Substring(0, 1)}.";
         bool IsValidCyrillic(string input) => Regex.IsMatch(input, @"^[ЁёА-я\-]{2,}$");
         bool CheckLogin(string input) => Regex.IsMatch(input, @"^(?=[^А-яЁё]*$)[A-Za-z0-9 _-]{3,}$");
         bool CheckPassword(string input) => Regex.IsMatch(input, @"^(?=[^А-яЁё]*$)(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9 _-]{6,}$");
         bool CheckEmail(string input) => Regex.IsMatch(input, @"^(?=[^А-яЁё]*$)([^.]*\.[^.]*)([^@]*@[^@]*)$");
         bool CheckAge(DateTime date) => CalculateAge(date) > 5 && date < DateTime.Today;
+    }
+    internal class Customer : User
+    {
+
+    }
+    internal class Administrator : User
+    {
+
     }
 }
