@@ -197,6 +197,7 @@ namespace eshop.Models
             Футболка = 1,
             Толстовка,
             Свитшот,
+            Платье,
         }
         public ClothingType Type { get; set; }
         public enum Size { XS = 1, S, M, L, XL, XXL }

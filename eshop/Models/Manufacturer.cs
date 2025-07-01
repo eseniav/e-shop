@@ -16,7 +16,9 @@ namespace eshop.Models
         Франция,
         Корея,
         Тайвань,
-        Япония
+        Япония,
+        Испания,
+        Италия
     }
     internal class Manufacturer
     {

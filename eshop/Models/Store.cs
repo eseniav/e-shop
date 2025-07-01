@@ -108,6 +108,44 @@ namespace eshop.Models
                     Вес: 250 г
                     Интерфейсы: Bluetooth 5.2, NFC
                     """
+            ),
+            new Clothing(
+                name: "Футболка классическая",
+                price: 1499m,
+                type: Clothing.ClothingType.Футболка,
+                size: Clothing.Size.L,
+                color: Clothing.Color.Черный,
+                materials: new List<Clothing.Material>
+                {
+                    Clothing.Material.Хлопок,
+                    Clothing.Material.Эластан
+                },
+                gender: Clothing.Gender.Мужской
+            ),
+            new Clothing(
+                name: "Толстовка Oversize",
+                price: 3990m,
+                type: Clothing.ClothingType.Толстовка,
+                size: Clothing.Size.XL,
+                color: Clothing.Color.Белый,
+                materials: new List<Clothing.Material>
+                {
+                    Clothing.Material.Хлопок,
+                    Clothing.Material.Флис
+                },
+                gender: Clothing.Gender.Унисекс
+            ),
+            new Clothing(
+                name: "Платье вечернее",
+                price: 8990m,
+                type: Clothing.ClothingType.Платье,
+                size: Clothing.Size.M,
+                color: Clothing.Color.Красный,
+                materials: new List<Clothing.Material>
+                {
+                    Clothing.Material.Шёлк
+                },
+                gender: Clothing.Gender.Женский
             )
         };
         public Product? GetProdById(int id) => products.Find(p => p.id == id);
@@ -123,6 +161,8 @@ namespace eshop.Models
             new Manufacturer("Samsung", Country.Корея),
             new Manufacturer("ASUS", Country.Тайвань),
             new Manufacturer("Sony", Country.Япония),
+            new Manufacturer("ZARA", Country.Испания),
+            new Manufacturer("GUCCI", Country.Италия),
         };
     }
 }
