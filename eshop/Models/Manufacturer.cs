@@ -12,6 +12,8 @@ namespace eshop.Models
         Германия,
         Китай,
         США,
+        Великобритания,
+        Франция,
     }
     internal class Manufacturer
     {
