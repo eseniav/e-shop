@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -64,6 +65,30 @@ namespace eshop.Models
     internal class Book : Product
     {
         public string Author { get; set; }
+        public enum Genre {
+            Фэнтези = 1,
+            [Display(Name = "Научная фантастика")]
+            НаучнаяФантастика,
+            Детектив,
+            Роман,
+            Триллер,
+            Ужасы,
+            Исторический,
+            Биография,
+            Поэзия,
+            Приключения,
+        }
+        public Genre genre { get; set; }
+        private int publicationDate;
+        public int PublicationDate
+        {
+            get => publicationDate;
+            set
+            {
+                if (CheckBookYear(value))
+                    publicationDate = value;
+            }
+        }
         public Book (string name, decimal price, string author) : base(name, price)
         {
             this.Author = author;
@@ -77,5 +102,6 @@ namespace eshop.Models
         {
             Console.WriteLine();
         }
+        public bool CheckBookYear(int year) => year >= 1900 && year <= DateTime.Today.Year;
     }
 }
