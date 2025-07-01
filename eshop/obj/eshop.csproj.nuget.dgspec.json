@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Владеня\\Desktop\\Колледж\\GitHub\\e-shop\\eshop\\eshop\\eshop.csproj": {}
+    "C:\\Users\\Владеня\\Desktop\\Колледж\\GitHub\\e-shop\\eshop\\eshop.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Владеня\\Desktop\\Колледж\\GitHub\\e-shop\\eshop\\eshop\\eshop.csproj": {
+    "C:\\Users\\Владеня\\Desktop\\Колледж\\GitHub\\e-shop\\eshop\\eshop.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Владеня\\Desktop\\Колледж\\GitHub\\e-shop\\eshop\\eshop\\eshop.csproj",
+        "projectUniqueName": "C:\\Users\\Владеня\\Desktop\\Колледж\\GitHub\\e-shop\\eshop\\eshop.csproj",
         "projectName": "eshop",
-        "projectPath": "C:\\Users\\Владеня\\Desktop\\Колледж\\GitHub\\e-shop\\eshop\\eshop\\eshop.csproj",
+        "projectPath": "C:\\Users\\Владеня\\Desktop\\Колледж\\GitHub\\e-shop\\eshop\\eshop.csproj",
         "packagesPath": "C:\\Users\\Владеня\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Владеня\\Desktop\\Колледж\\GitHub\\e-shop\\eshop\\eshop\\obj\\",
+        "outputPath": "C:\\Users\\Владеня\\Desktop\\Колледж\\GitHub\\e-shop\\eshop\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
