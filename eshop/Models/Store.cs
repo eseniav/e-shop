@@ -146,6 +146,37 @@ namespace eshop.Models
                     Clothing.Material.Шёлк
                 },
                 gender: Clothing.Gender.Женский
+            ),
+            new Food(
+                name: "Сыр Российский",
+                price: 450m,
+                expiryDate: new DateTime(2026, 06, 15),
+                weightGrams: 500,
+                composition: """
+                    Состав: молоко коровье пастеризованное,
+                    закваска молочнокислых культур,
+                    ферментный препарат,
+                    соль, кальций хлористый
+                    """
+            ),
+            new Food(
+                name: "Гречневая крупа",
+                price: 120m,
+                expiryDate: new DateTime(2027, 03, 01),
+                weightGrams: 900,
+                composition: "Состав: гречневая крупа ядрица 100%"
+            ),
+            new Food(
+                name: "Шоколад молочный",
+                price: 95m,
+                expiryDate: new DateTime(2027, 12, 31),
+                weightGrams: 100,
+                composition: """
+                    Состав: сахар, какао-масло,
+                    сухое цельное молоко,
+                    какао тертое, эмульгатор (лецитин),
+                    ароматизатор ванилин
+                    """
             )
         };
         public Product? GetProdById(int id) => products.Find(p => p.id == id);
@@ -163,6 +194,9 @@ namespace eshop.Models
             new Manufacturer("Sony", Country.Япония),
             new Manufacturer("ZARA", Country.Испания),
             new Manufacturer("GUCCI", Country.Италия),
+            new Manufacturer("Белый медведь", Country.Россия), // Для сыра
+            new Manufacturer("Мистраль", Country.Россия),     // Для крупы
+            new Manufacturer("Бабаевский", Country.Россия),    // Для шоколада
         };
     }
 }
