@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using static eshop.Models.Book;
 
 namespace eshop.Models
 {
@@ -59,11 +63,37 @@ namespace eshop.Models
         static public bool CheckPrice(decimal price) => price >= 0;
         static public bool CheckPrice(float price) => price >= 0;
         private bool CheckPrice() => price >= 0;
-        public abstract void Display();
+        public abstract string Display();
+        static public bool CheckExpiryDate(DateTime dateTime) => dateTime < DateTime.Today;
     }
     internal class Book : Product
     {
         public string Author { get; set; }
+        public enum Genre {
+            Фэнтези = 1,
+            [Display(Name = "Научная фантастика")]
+            НаучнаяФантастика,
+            Детектив,
+            Роман,
+            Триллер,
+            Ужасы,
+            Исторический,
+            Биография,
+            Поэзия,
+            Приключения,
+            Антиутопия,
+        }
+        public Genre BookGenre { get; set; }
+        private int publicationDate;
+        public int PublicationDate
+        {
+            get => publicationDate;
+            set
+            {
+                if (CheckBookYear(value))
+                    publicationDate = value;
+            }
+        }
         public Book (string name, decimal price, string author) : base(name, price)
         {
             this.Author = author;
@@ -73,9 +103,184 @@ namespace eshop.Models
             Console.WriteLine($"{id}. {Author} {Title} -- {Price}");
         }
         public override string ToString() => base.ToString() + $", {Author}";
-        public override void Display()
+        public override string Display()
         {
-            Console.WriteLine();
+            return $"""
+                    Характеристики товара:
+                    Автор: {Author}
+                    Название: {Title}
+                    Жанр: {BookGenre}
+                    Год издания: {publicationDate}
+                    """;
+        }
+        public bool CheckBookYear(int year) => year >= 1900 && year <= DateTime.Today.Year;
+    }
+    internal class Cosmetic : Product
+    {
+        public override string Display()
+        {
+            return $"""
+                    Характеристики товара:
+                    Название: {Title}
+                    Тип: {CosmeticType}
+                    Объем: {Volume}
+                    Срок годности: {expiryDate}
+                    """;
+        }
+        private DateTime expiryDate;
+        public DateTime ExpiryDate
+        {
+            get => expiryDate;
+            set
+            {
+                if (CheckExpiryDate(value))
+                    expiryDate = value;
+            }
+        }
+        public string Volume { get; set; }
+        public string CosmeticType { get; set; }
+    }
+    internal class Electronics : Product
+    {
+        public override string Display()
+        {
+            return $"""
+                    Характеристики товара:
+                    Название: {Title}
+                    Модель: {Model}
+                    Гарантия(в месяцах): {warrantyMonths}
+                    Описание: {Specifications}
+                    """;
+        }
+        public string Model { get; set; }
+        private int warrantyMonths;
+        public int WarrantyMonths
+        {
+            get => warrantyMonths;
+            set
+            {
+                if (value >= 0)
+                    warrantyMonths = value;
+            }
+        }
+        public string Specifications { get; set; }
+    }
+    internal class Clothing : Product
+    {
+        public override string Display()
+        {
+            return $"""
+                    Характеристики товара:
+                    Название: {Title}
+                    Тип: {Type}
+                    Размер: {ClothingSize}
+                    Цвет: {ClothingColor}
+                    Материал: {ClothingMaterial}
+                    Пол: {ClothingGender}
+                    """;
+        }
+        public enum ClothingType
+        {
+            Футболка = 1,
+            Толстовка,
+            Свитшот,
+        }
+        public ClothingType Type { get; set; }
+        public enum Size { XS = 1, S, M, L, XL, XXL }
+        public Size ClothingSize { get; set; }
+        public enum Color
+        {
+            Белый,
+            Черный,
+            Красный,
+            Зеленый,
+            Синий,
+            Бежевый,
+            Желтый,
+            Фиолетовый,
+        }
+        public Color ClothingColor { get; set; }
+        public enum Material
+        {
+            [Description("Дышащий, гипоаллергенный")]
+            Хлопок = 1,
+            [Description("Натуральный, держит форму")]
+            Лён,
+            [Description("Тёплая, требует особого ухода")]
+            Шерсть,
+            [Description("Роскошный, деликатный")]
+            Шёлк,
+            [Description("Джинсовая ткань")]
+            ДжинсоваяТкань,
+            [Description("Износостойкий, быстро сохнет")]
+            Полиэстер,
+            [Description("Мягкая, имитирует натуральные ткани")]
+            Вискоза,
+            [Description("Растягивается, добавляется к другим тканям")]
+            Эластан,
+            [Description("Мягкий утеплитель")]
+            Флис,
+            [Description("Натуральная, премиальный вид")]
+            Кожа,
+            [Description("Мягкая текстурированная кожа")]
+            Замша,
+            [Description("Лёгкий, водоотталкивающий")]
+            Нейлон,
+        }
+        public List<Material> ClothingMaterial { get; set; }
+        public enum Gender
+        {
+            Мужской = 1,
+            Женский,
+            Унисекс,
+        }
+        public Gender ClothingGender { get; set; }
+    }
+    internal class Food : Product
+    {
+        public override string Display()
+        {
+            return $"""
+                    Характеристики товара:
+                    Название: {Title}
+                    Срок годности: {ExpiryDate}
+                    Вес: {FormatWeight(weightGrams)}
+                    Состав: {Composition}
+                    """;
+        }
+        private DateTime expiryDate;
+        public DateTime ExpiryDate
+        {
+            get => expiryDate;
+            set
+            {
+                if (CheckExpiryDate(value))
+                    expiryDate = value;
+            }
+        }
+        public string Composition { get; set; }
+        private int weightGrams;
+        public int WeightGrams
+        {
+            get => weightGrams;
+            set
+            {
+                if (value > 0)
+                    weightGrams = value;
+            }
+        }
+        public static string FormatWeight(int grams)
+        {
+            const int gramsPerKilogram = 1000;
+            int kilograms = grams / gramsPerKilogram;
+            int remainingGrams = grams % gramsPerKilogram;
+            return (kilograms, remainingGrams) switch
+            {
+                (0, 0) => "0 г",
+                (0, _) => $"{remainingGrams} г",
+                (_, 0) => $"{kilograms} кг",
+                _ => $"{kilograms} кг {remainingGrams} г"
+            };
         }
     }
 }
