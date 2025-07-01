@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using static eshop.Models.Book;
+using static eshop.Models.Clothing;
 
 namespace eshop.Models
 {
@@ -139,6 +140,12 @@ namespace eshop.Models
         }
         public string Volume { get; set; }
         public string CosmeticType { get; set; }
+        public Cosmetic(string name, decimal price, DateTime expiryDate, string volume, string type) : base(name, price)
+        {
+            this.ExpiryDate = expiryDate;
+            this.Volume = volume;
+            this.CosmeticType = type;
+        }
     }
     internal class Electronics : Product
     {
@@ -164,6 +171,12 @@ namespace eshop.Models
             }
         }
         public string Specifications { get; set; }
+        public Electronics(string name, decimal price, string model, int warrantyMonths, string specifications) : base(name, price)
+        {
+            this.Model = model;
+            this.WarrantyMonths = warrantyMonths;
+            this.Specifications = specifications;
+        }
     }
     internal class Clothing : Product
     {
@@ -175,7 +188,7 @@ namespace eshop.Models
                     Тип: {Type}
                     Размер: {ClothingSize}
                     Цвет: {ClothingColor}
-                    Материал: {ClothingMaterial}
+                    Материал: {ClothingMaterials}
                     Пол: {ClothingGender}
                     """;
         }
@@ -227,7 +240,7 @@ namespace eshop.Models
             [Description("Лёгкий, водоотталкивающий")]
             Нейлон,
         }
-        public List<Material> ClothingMaterial { get; set; }
+        public List<Material> ClothingMaterials { get; set; }
         public enum Gender
         {
             Мужской = 1,
@@ -235,6 +248,19 @@ namespace eshop.Models
             Унисекс,
         }
         public Gender ClothingGender { get; set; }
+        public Clothing(string name, decimal price, ClothingType type, Size size, Color color, List<Material> materials, Gender gender) : base(name, price)
+        {
+            this.Type = type;
+            this.ClothingSize = size;
+            this.ClothingColor = color;
+            this.ClothingMaterials = materials;
+            this.ClothingGender = gender;
+        }
+        public void AddMaterial(Material material)
+        {
+            if (!ClothingMaterials.Contains(material))
+                ClothingMaterials.Add(material);
+        }
     }
     internal class Food : Product
     {
@@ -281,6 +307,12 @@ namespace eshop.Models
                 (_, 0) => $"{kilograms} кг",
                 _ => $"{kilograms} кг {remainingGrams} г"
             };
+        }
+        public Food(string name, decimal price, DateTime expiryDate, int weightGrams, string composition) : base(name, price)
+        {
+            this.ExpiryDate = expiryDate;
+            this.WeightGrams = weightGrams;
+            this.Composition = composition;
         }
     }
 }
