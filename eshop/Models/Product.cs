@@ -12,9 +12,10 @@ using static eshop.Models.Clothing;
 
 namespace eshop.Models
 {
-    internal abstract class Product
+    internal abstract class Product : IAutoIncrementable
     {
         internal int id = 0;
+        public int Id { get; set; }
         internal string name = "default name";
         internal string Title => name.Substring(0, 1).ToUpper() + name.Substring(1);
         private decimal price = 0;
@@ -23,37 +24,35 @@ namespace eshop.Models
             get => price;
             set
             {
-                price = CheckPrice(value) ? price : 0;
+                price = CheckPrice(value) ? value : 0;
             }
         }
         private int productTypeId;
         public int ProductTypeId { get; set; }
-        internal Product() : this(1)
+        public Manufacturer? Manufacturer { get; set; }
+        internal Product() : this("default name")
         {
 
         }
-        internal Product(int id) : this("default name", id)
+        internal Product(string name) : this(name, 951.36m)
         {
 
         }
-        internal Product(string name, int id = 0) : this(name, 951.36m, id)
+        internal Product(string name, decimal price, Manufacturer manufacturer = null)
         {
-
-        }
-        internal Product(string name, decimal price, int id = 0)
-        {
-            this.id = id;
+            this.Id = IDGenerator<Product>.GetNextId();
             this.name = name;
-            this.price = price;
+            this.Price = price;
+            this.Manufacturer = manufacturer;
         }
         /// <summary>
         /// Формат: ID. Название -- цена
         /// </summary>
         internal virtual void Print()
         {
-            Console.WriteLine($"{id}. {Title} -- {Price}");
+            Console.WriteLine($"{Id}. {Title} -- {Price}");
         }
-        public override string ToString() => $"{id}. {Title} -- {Price}";
+        public override string ToString() => $"{Id}. {Title} -- {Price} -- {Manufacturer}";
         /// <summary>
         /// Проверка цены
         /// </summary>
@@ -95,7 +94,7 @@ namespace eshop.Models
                     publicationDate = value;
             }
         }
-        public Book (string name, decimal price, string author) : base(name, price)
+        public Book (string name, decimal price, Manufacturer manufacturer, string author) : base(name, price, manufacturer)
         {
             this.Author = author;
         }
