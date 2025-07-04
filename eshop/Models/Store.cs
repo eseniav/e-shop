@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace eshop.Models
@@ -61,6 +64,74 @@ namespace eshop.Models
         public void AddPosition(Product product)
         {
             products.Add(product);
+        }
+        public void SaveProductsToFile(string filePath)
+        {
+            try
+            {
+                var options = new JsonSerializerOptions
+                {
+                    WriteIndented = true,
+                    IncludeFields = true,
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                };
+                string json = JsonSerializer.Serialize(products, options);
+                File.WriteAllText(filePath, json);
+                Console.WriteLine($"Сохранено {products.Count} товаров в {filePath}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка сохранения: {ex.Message}");
+            }
+        }
+        public void SaveToFile<T>(string filePath, IEnumerable<T> collection)
+        {
+            try
+            {
+                var options = new JsonSerializerOptions
+                {
+                    WriteIndented = true,
+                    IncludeFields = true,
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                };
+                string json = JsonSerializer.Serialize(collection, options);
+                File.WriteAllText(filePath, json);
+                Console.WriteLine($"Сохранено {collection.Count()} товаров в {filePath}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка сохранения: {ex.Message}");
+            }
+        }
+        public void SaveProduct()
+        {
+            SaveToFile("products.json", products);
+        }
+        public void LoadProductsFromFile(string filePath)
+        {
+            try
+            {
+                var options = new JsonSerializerOptions
+                {
+                    IncludeFields = true,
+                    PropertyNameCaseInsensitive = true
+                };
+
+                string json = File.ReadAllText(filePath);
+                var loadedProducts = JsonSerializer.Deserialize<List<Product>>(json, options);
+
+                if (loadedProducts != null)
+                {
+                    products = loadedProducts;
+                    Console.WriteLine($"Загружено {products.Count} товаров из {filePath}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка загрузки: {ex.Message}");
+            }
         }
     }
 }

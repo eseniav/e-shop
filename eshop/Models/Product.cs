@@ -3,23 +3,31 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using static eshop.Models.Book;
 using static eshop.Models.Clothing;
 
 namespace eshop.Models
 {
+    [JsonDerivedType(typeof(Book), typeDiscriminator: "book")]
+    [JsonDerivedType(typeof(Electronics), typeDiscriminator: "electronics")]
+    [JsonDerivedType(typeof(Cosmetic), typeDiscriminator: "cosmetic")]
+    [JsonDerivedType(typeof(Clothing), typeDiscriminator: "clothing")]
+    [JsonDerivedType(typeof(Food), typeDiscriminator: "food")]
     internal abstract class Product : IAutoIncrementable
     {
         internal int id = 0;
         public int Id { get; set; }
-        internal string name = "default name";
-        internal string Title => name.Substring(0, 1).ToUpper() + name.Substring(1);
+        public string Name { get; set; }
+        internal string Title => Name.Substring(0, 1).ToUpper() + Name.Substring(1);
         private decimal price = 0;
-        internal decimal Price
+        public decimal Price
         {
             get => price;
             set
@@ -27,13 +35,9 @@ namespace eshop.Models
                 price = CheckPrice(value) ? value : 0;
             }
         }
-        private int productTypeId;
-        public int ProductTypeId { get; set; }
         public Manufacturer? Manufacturer { get; set; }
-        internal Product() : this("default name")
-        {
-
-        }
+        [JsonConstructor]
+        protected Product() { }
         internal Product(string name) : this(name, 951.36m)
         {
 
@@ -41,7 +45,7 @@ namespace eshop.Models
         internal Product(string name, decimal price, Manufacturer manufacturer = null)
         {
             this.Id = IDGenerator<Product>.GetNextId();
-            this.name = name;
+            this.Name = name;
             this.Price = price;
             this.Manufacturer = manufacturer;
         }
@@ -83,6 +87,7 @@ namespace eshop.Models
             Приключения,
             Антиутопия,
         }
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public Genre BookGenre { get; set; }
         private int publicationDate;
         public int PublicationDate
@@ -98,6 +103,8 @@ namespace eshop.Models
         {
             this.Author = author;
         }
+        [JsonConstructor]
+        public Book() { }
         internal sealed override void Print()
         {
             Console.WriteLine($"{id}. {Author} {Title} -- {Price}");
