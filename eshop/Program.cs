@@ -67,114 +67,114 @@ namespace eshop
                 volume: "10 мл",
                 type: "Тушь для ресниц"
             ),
-            //new Electronics(
-            //    name: "Смартфон Samsung Galaxy S23",
-            //    price: 89990m,
-            //    model: "SM-S911B",
-            //    warrantyMonths: 24,
-            //    specifications: """
-            //        Экран: 6.1\" Dynamic AMOLED 2X (2340x1080)
-            //        Процессор: Snapdragon 8 Gen 2
-            //        Память: 8/256 ГБ
-            //        Камеры: 50 МП + 12 МП + 10 МП
-            //        Батарея: 3900 мАч
-            //        """
-            //),
-            //new Electronics(
-            //    name: "Ноутбук ASUS VivoBook 15",
-            //    price: 54990m,
-            //    model: "X1502ZA-EJ317",
-            //    warrantyMonths: 12,
-            //    specifications: """
-            //        Экран: 15.6\" IPS (1920x1080)
-            //        Процессор: Intel Core i5-1235U
-            //        Оперативная память: 16 ГБ
-            //        SSD: 512 ГБ
-            //        ОС: Windows 11 Home
-            //        """
-            //),
-            //new Electronics(
-            //    name: "Наушники Sony WH-1000XM5",
-            //    price: 32990m,
-            //    model: "WH-1000XM5/B",
-            //    warrantyMonths: 18,
-            //    specifications: """
-            //        Тип: беспроводные, с шумоподавлением
-            //        Акустика: 30 мм динамики
-            //        Время работы: до 30 часов
-            //        Вес: 250 г
-            //        Интерфейсы: Bluetooth 5.2, NFC
-            //        """
-            //),
-            //new Clothing(
-            //    name: "Футболка классическая",
-            //    price: 1499m,
-            //    type: Clothing.ClothingType.Футболка,
-            //    size: Clothing.Size.L,
-            //    color: Clothing.Color.Черный,
-            //    materials: new List<Clothing.Material>
-            //    {
-            //        Clothing.Material.Хлопок,
-            //        Clothing.Material.Эластан
-            //    },
-            //    gender: Clothing.Gender.Мужской
-            //),
-            //new Clothing(
-            //    name: "Толстовка Oversize",
-            //    price: 3990m,
-            //    type: Clothing.ClothingType.Толстовка,
-            //    size: Clothing.Size.XL,
-            //    color: Clothing.Color.Белый,
-            //    materials: new List<Clothing.Material>
-            //    {
-            //        Clothing.Material.Хлопок,
-            //        Clothing.Material.Флис
-            //    },
-            //    gender: Clothing.Gender.Унисекс
-            //),
-            //new Clothing(
-            //    name: "Платье вечернее",
-            //    price: 8990m,
-            //    type: Clothing.ClothingType.Платье,
-            //    size: Clothing.Size.M,
-            //    color: Clothing.Color.Красный,
-            //    materials: new List<Clothing.Material>
-            //    {
-            //        Clothing.Material.Шёлк
-            //    },
-            //    gender: Clothing.Gender.Женский
-            //),
-            //new Food(
-            //    name: "Сыр Российский",
-            //    price: 450m,
-            //    expiryDate: new DateTime(2026, 06, 15),
-            //    weightGrams: 500,
-            //    composition: """
-            //        Состав: молоко коровье пастеризованное,
-            //        закваска молочнокислых культур,
-            //        ферментный препарат,
-            //        соль, кальций хлористый
-            //        """
-            //),
-            //new Food(
-            //    name: "Гречневая крупа",
-            //    price: 120m,
-            //    expiryDate: new DateTime(2027, 03, 01),
-            //    weightGrams: 900,
-            //    composition: "Состав: гречневая крупа ядрица 100%"
-            //),
-            //new Food(
-            //    name: "Шоколад молочный",
-            //    price: 95m,
-            //    expiryDate: new DateTime(2027, 12, 31),
-            //    weightGrams: 100,
-            //    composition: """
-            //        Состав: сахар, какао-масло,
-            //        сухое цельное молоко,
-            //        какао тертое, эмульгатор (лецитин),
-            //        ароматизатор ванилин
-            //        """
-            //)
+            new Electronics(
+                name: "Смартфон Samsung Galaxy S23",
+                price: 89990m,
+                model: "SM-S911B",
+                warrantyMonths: 24,
+                specifications: """
+                    Экран: 6.1\" Dynamic AMOLED 2X (2340x1080)
+                    Процессор: Snapdragon 8 Gen 2
+                    Память: 8/256 ГБ
+                    Камеры: 50 МП + 12 МП + 10 МП
+                    Батарея: 3900 мАч
+                    """
+            ),
+            new Electronics(
+                name: "Ноутбук ASUS VivoBook 15",
+                price: 54990m,
+                model: "X1502ZA-EJ317",
+                warrantyMonths: 12,
+                specifications: """
+                    Экран: 15.6\" IPS (1920x1080)
+                    Процессор: Intel Core i5-1235U
+                    Оперативная память: 16 ГБ
+                    SSD: 512 ГБ
+                    ОС: Windows 11 Home
+                    """
+            ),
+            new Electronics(
+                name: "Наушники Sony WH-1000XM5",
+                price: 32990m,
+                model: "WH-1000XM5/B",
+                warrantyMonths: 18,
+                specifications: """
+                    Тип: беспроводные, с шумоподавлением
+                    Акустика: 30 мм динамики
+                    Время работы: до 30 часов
+                    Вес: 250 г
+                    Интерфейсы: Bluetooth 5.2, NFC
+                    """
+            ),
+            new Clothing(
+                name: "Футболка классическая",
+                price: 1499m,
+                type: Clothing.ClothingType.Футболка,
+                size: Clothing.Size.L,
+                color: Clothing.Color.Черный,
+                materials: new List<Clothing.Material>
+                {
+                    Clothing.Material.Хлопок,
+                    Clothing.Material.Эластан
+                },
+                gender: Clothing.Gender.Мужской
+            ),
+            new Clothing(
+                name: "Толстовка Oversize",
+                price: 3990m,
+                type: Clothing.ClothingType.Толстовка,
+                size: Clothing.Size.XL,
+                color: Clothing.Color.Белый,
+                materials: new List<Clothing.Material>
+                {
+                    Clothing.Material.Хлопок,
+                    Clothing.Material.Флис
+                },
+                gender: Clothing.Gender.Унисекс
+            ),
+            new Clothing(
+                name: "Платье вечернее",
+                price: 8990m,
+                type: Clothing.ClothingType.Платье,
+                size: Clothing.Size.M,
+                color: Clothing.Color.Красный,
+                materials: new List<Clothing.Material>
+                {
+                    Clothing.Material.Шёлк
+                },
+                gender: Clothing.Gender.Женский
+            ),
+            new Food(
+                name: "Сыр Российский",
+                price: 450m,
+                expiryDate: new DateTime(2026, 06, 15),
+                weightGrams: 500,
+                composition: """
+                    Состав: молоко коровье пастеризованное,
+                    закваска молочнокислых культур,
+                    ферментный препарат,
+                    соль, кальций хлористый
+                    """
+            ),
+            new Food(
+                name: "Гречневая крупа",
+                price: 120m,
+                expiryDate: new DateTime(2027, 03, 01),
+                weightGrams: 900,
+                composition: "Состав: гречневая крупа ядрица 100%"
+            ),
+            new Food(
+                name: "Шоколад молочный",
+                price: 95m,
+                expiryDate: new DateTime(2027, 12, 31),
+                weightGrams: 100,
+                composition: """
+                    Состав: сахар, какао-масло,
+                    сухое цельное молоко,
+                    какао тертое, эмульгатор (лецитин),
+                    ароматизатор ванилин
+                    """
+            )
         };
             foreach (var prod in products)
             {

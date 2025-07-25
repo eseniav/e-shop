@@ -26,4 +26,37 @@ namespace eshop.Models
             }
         }
     }
+    internal class MaterialListConverter : JsonConverter<List<Clothing.Material>>
+    {
+        public override List<Clothing.Material> Read(ref Utf8JsonReader reader,
+                                                  Type typeToConvert,
+                                                  JsonSerializerOptions options)
+        {
+            var materials = new List<Clothing.Material>();
+            while (reader.Read() && reader.TokenType != JsonTokenType.EndArray)
+            {
+                if (reader.TokenType == JsonTokenType.String)
+                {
+                    var value = reader.GetString();
+                    if (Enum.TryParse<Clothing.Material>(value, out var material))
+                    {
+                        materials.Add(material);
+                    }
+                }
+            }
+            return materials;
+        }
+
+        public override void Write(Utf8JsonWriter writer,
+                                 List<Clothing.Material> value,
+                                 JsonSerializerOptions options)
+        {
+            writer.WriteStartArray();
+            foreach (var material in value)
+            {
+                writer.WriteStringValue(material.ToString());
+            }
+            writer.WriteEndArray();
+        }
+    }
 }

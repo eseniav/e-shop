@@ -183,6 +183,7 @@ namespace eshop.Models
                     warrantyMonths = value;
             }
         }
+        [JsonPropertyName("specifications")]
         public string Specifications { get; set; }
         [JsonConstructor]
         public Electronics() { }
@@ -214,8 +215,10 @@ namespace eshop.Models
             Свитшот,
             Платье,
         }
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public ClothingType Type { get; set; }
         public enum Size { XS = 1, S, M, L, XL, XXL }
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public Size ClothingSize { get; set; }
         public enum Color
         {
@@ -228,6 +231,7 @@ namespace eshop.Models
             Желтый,
             Фиолетовый,
         }
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public Color ClothingColor { get; set; }
         public enum Material
         {
@@ -256,6 +260,7 @@ namespace eshop.Models
             [Description("Лёгкий, водоотталкивающий")]
             Нейлон,
         }
+        [JsonConverter(typeof(MaterialListConverter))]
         public List<Material> ClothingMaterials { get; set; }
         public enum Gender
         {
@@ -263,6 +268,7 @@ namespace eshop.Models
             Женский,
             Унисекс,
         }
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public Gender ClothingGender { get; set; }
         [JsonConstructor]
         public Clothing() { }
@@ -293,6 +299,7 @@ namespace eshop.Models
                     """;
         }
         private DateTime expiryDate;
+        [JsonConverter(typeof(JsonDateTimeConverter))]
         public DateTime ExpiryDate
         {
             get => expiryDate;

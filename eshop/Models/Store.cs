@@ -97,7 +97,7 @@ namespace eshop.Models
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                     Converters = {
                         new JsonStringEnumConverter(),
-                        new Converters.JsonDateTimeConverter()
+                        new JsonDateTimeConverter()
                     },
                     Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
                     TypeInfoResolver = new DefaultJsonTypeInfoResolver
@@ -126,7 +126,7 @@ namespace eshop.Models
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                     Converters = {
                         new JsonStringEnumConverter(),
-                        new Converters.JsonDateTimeConverter()
+                        new JsonDateTimeConverter()
                     },
                     Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
                     TypeInfoResolver = new DefaultJsonTypeInfoResolver
@@ -163,7 +163,7 @@ namespace eshop.Models
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                     Converters = {
                         new JsonStringEnumConverter(),
-                        new Converters.JsonDateTimeConverter()
+                        new JsonDateTimeConverter()
                     },
                     Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
                     TypeInfoResolver = new DefaultJsonTypeInfoResolver
