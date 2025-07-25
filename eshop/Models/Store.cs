@@ -19,25 +19,9 @@ namespace eshop.Models
     internal class Store : IListPrintable
     {
         public List<Product> products = new List<Product>();
+        public List<Manufacturer> manufacturers = new List<Manufacturer>();
         public Product? GetProdById(int id) => products.Find(p => p.id == id);
-        public List<Manufacturer> manufacturers = new() {
-            new Manufacturer("АСТ", Country.Россия),
-            new Manufacturer("ЭКСМО", Country.Россия),
-            new Manufacturer("МИФ", Country.Россия),
-            new Manufacturer("Nivea", Country.Германия),
-            new Manufacturer("Head & Shoulders", Country.США),
-            new Manufacturer("Maybelline", Country.США),
-            new Manufacturer("Rexona", Country.Великобритания),
-            new Manufacturer("L'Oréal Paris", Country.Франция),
-            new Manufacturer("Samsung", Country.Корея),
-            new Manufacturer("ASUS", Country.Тайвань),
-            new Manufacturer("Sony", Country.Япония),
-            new Manufacturer("ZARA", Country.Испания),
-            new Manufacturer("GUCCI", Country.Италия),
-            new Manufacturer("Белый медведь", Country.Россия), // Для сыра
-            new Manufacturer("Мистраль", Country.Россия),     // Для крупы
-            new Manufacturer("Бабаевский", Country.Россия),    // Для шоколада
-        };
+        
         public override string ToString()
         {
             return products.Count().ToString();
@@ -63,9 +47,13 @@ namespace eshop.Models
         {
             PrintCollection(manufacturers);
         }
-        public void AddPosition(Product product)
+        public void AddPositionToProducts(Product product)
         {
             products.Add(product);
+        }
+        public void AddPositionToManufacturers(Manufacturer manufacturer)
+        {
+            manufacturers.Add(manufacturer);
         }
         static void AddTypeDiscriminator(JsonTypeInfo typeInfo)
         {
@@ -148,7 +136,7 @@ namespace eshop.Models
             SaveToFile("products.json", products);
         }
         public void SaveManufacturers()
-        {
+        {   
             SaveToFile("manufacturers.json", manufacturers);
         }
         public void LoadProductsFromFile(string filePath)
@@ -197,9 +185,9 @@ namespace eshop.Models
                     DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                     Converters = {
-                        new JsonStringEnumConverter(),
-                        new JsonDateTimeConverter()
-                    },
+                new JsonStringEnumConverter(),
+                new JsonDateTimeConverter()
+            },
                     Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
                     TypeInfoResolver = new DefaultJsonTypeInfoResolver
                     {

@@ -24,6 +24,7 @@ namespace eshop.Models
     internal abstract class Product : IAutoIncrementable
     {
         internal int id = 0;
+        [JsonPropertyName("id")]
         public int Id { get; set; }
         public string Name { get; set; }
         internal string Title => Name.Substring(0, 1).ToUpper() + Name.Substring(1);
@@ -153,7 +154,7 @@ namespace eshop.Models
         public string CosmeticType { get; set; }
         [JsonConstructor]
         public Cosmetic() { }
-        public Cosmetic(string name, decimal price, DateTime expiryDate, string volume, string type) : base(name, price)
+        public Cosmetic(string name, decimal price, DateTime expiryDate, string volume, string type, Manufacturer manufacturer) : base(name, price)
         {
             this.ExpiryDate = expiryDate;
             this.Volume = volume;
