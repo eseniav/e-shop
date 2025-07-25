@@ -5,7 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 using System.Threading.Tasks;
+using static eshop.Models.Converters;
 
 namespace eshop.Models
 {
@@ -65,6 +67,24 @@ namespace eshop.Models
         {
             products.Add(product);
         }
+        static void AddTypeDiscriminator(JsonTypeInfo typeInfo)
+        {
+            if (typeInfo.Type == typeof(Product))
+            {
+                typeInfo.PolymorphismOptions = new JsonPolymorphismOptions
+                {
+                    TypeDiscriminatorPropertyName = "$type",
+                    DerivedTypes =
+            {
+                new JsonDerivedType(typeof(Book), "book"),
+                new JsonDerivedType(typeof(Cosmetic), "cosmetic"),
+                new JsonDerivedType(typeof(Electronics), "electronics"),
+                new JsonDerivedType(typeof(Clothing), "clothing"),
+                new JsonDerivedType(typeof(Food), "food")
+            }
+                };
+            }
+        }
         public void SaveProductsToFile(string filePath)
         {
             try
@@ -74,7 +94,16 @@ namespace eshop.Models
                     WriteIndented = true,
                     IncludeFields = true,
                     DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                    Converters = {
+                        new JsonStringEnumConverter(),
+                        new Converters.JsonDateTimeConverter()
+                    },
+                    Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                    TypeInfoResolver = new DefaultJsonTypeInfoResolver
+                    {
+                        Modifiers = { AddTypeDiscriminator }
+                    }
                 };
                 string json = JsonSerializer.Serialize(products, options);
                 File.WriteAllText(filePath, json);
@@ -94,7 +123,16 @@ namespace eshop.Models
                     WriteIndented = true,
                     IncludeFields = true,
                     DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                    Converters = {
+                        new JsonStringEnumConverter(),
+                        new Converters.JsonDateTimeConverter()
+                    },
+                    Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                    TypeInfoResolver = new DefaultJsonTypeInfoResolver
+                    {
+                        Modifiers = { AddTypeDiscriminator }
+                    }
                 };
                 string json = JsonSerializer.Serialize(collection, options);
                 File.WriteAllText(filePath, json);
@@ -109,14 +147,29 @@ namespace eshop.Models
         {
             SaveToFile("products.json", products);
         }
+        public void SaveManufacturers()
+        {
+            SaveToFile("manufacturers.json", manufacturers);
+        }
         public void LoadProductsFromFile(string filePath)
         {
             try
             {
                 var options = new JsonSerializerOptions
                 {
+                    WriteIndented = true,
                     IncludeFields = true,
-                    PropertyNameCaseInsensitive = true
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                    Converters = {
+                        new JsonStringEnumConverter(),
+                        new Converters.JsonDateTimeConverter()
+                    },
+                    Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                    TypeInfoResolver = new DefaultJsonTypeInfoResolver
+                    {
+                        Modifiers = { AddTypeDiscriminator }
+                    }
                 };
 
                 string json = File.ReadAllText(filePath);
@@ -126,6 +179,41 @@ namespace eshop.Models
                 {
                     products = loadedProducts;
                     Console.WriteLine($"Загружено {products.Count} товаров из {filePath}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка загрузки: {ex.Message}");
+            }
+        }
+        public void LoadManufacturersFromFile(string filePath)
+        {
+            try
+            {
+                var options = new JsonSerializerOptions
+                {
+                    WriteIndented = true,
+                    IncludeFields = true,
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                    Converters = {
+                        new JsonStringEnumConverter(),
+                        new JsonDateTimeConverter()
+                    },
+                    Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                    TypeInfoResolver = new DefaultJsonTypeInfoResolver
+                    {
+                        Modifiers = { AddTypeDiscriminator }
+                    }
+                };
+
+                string json = File.ReadAllText(filePath);
+                var loadedManufacturers = JsonSerializer.Deserialize<List<Manufacturer>>(json, options);
+
+                if (loadedManufacturers != null)
+                {
+                    manufacturers = loadedManufacturers;
+                    Console.WriteLine($"Загружено {manufacturers.Count} производителей из {filePath}");
                 }
             }
             catch (Exception ex)

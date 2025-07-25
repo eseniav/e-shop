@@ -12,6 +12,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using static eshop.Models.Book;
 using static eshop.Models.Clothing;
+using static eshop.Models.Converters;
 
 namespace eshop.Models
 {
@@ -68,7 +69,7 @@ namespace eshop.Models
         static public bool CheckPrice(float price) => price >= 0;
         private bool CheckPrice() => price >= 0;
         public abstract string Display();
-        static public bool CheckExpiryDate(DateTime dateTime) => dateTime < DateTime.Today;
+        static public bool CheckExpiryDate(DateTime dateTime) => dateTime > DateTime.Today;
     }
     internal class Book : Product
     {
@@ -135,6 +136,8 @@ namespace eshop.Models
                     """;
         }
         private DateTime expiryDate;
+
+        [JsonConverter(typeof(JsonDateTimeConverter))]
         public DateTime ExpiryDate
         {
             get => expiryDate;
@@ -142,10 +145,14 @@ namespace eshop.Models
             {
                 if (CheckExpiryDate(value))
                     expiryDate = value;
+                else
+                    throw new ArgumentException("Некорректная дата срока годности");
             }
         }
         public string Volume { get; set; }
         public string CosmeticType { get; set; }
+        [JsonConstructor]
+        public Cosmetic() { }
         public Cosmetic(string name, decimal price, DateTime expiryDate, string volume, string type) : base(name, price)
         {
             this.ExpiryDate = expiryDate;
@@ -177,6 +184,8 @@ namespace eshop.Models
             }
         }
         public string Specifications { get; set; }
+        [JsonConstructor]
+        public Electronics() { }
         public Electronics(string name, decimal price, string model, int warrantyMonths, string specifications) : base(name, price)
         {
             this.Model = model;
@@ -255,6 +264,8 @@ namespace eshop.Models
             Унисекс,
         }
         public Gender ClothingGender { get; set; }
+        [JsonConstructor]
+        public Clothing() { }
         public Clothing(string name, decimal price, ClothingType type, Size size, Color color, List<Material> materials, Gender gender) : base(name, price)
         {
             this.Type = type;
@@ -315,6 +326,8 @@ namespace eshop.Models
                 _ => $"{kilograms} кг {remainingGrams} г"
             };
         }
+        [JsonConstructor]
+        public Food() { }
         public Food(string name, decimal price, DateTime expiryDate, int weightGrams, string composition) : base(name, price)
         {
             this.ExpiryDate = expiryDate;

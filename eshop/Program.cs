@@ -32,41 +32,41 @@ namespace eshop
                     BookGenre = Book.Genre.Фэнтези,
                     PublicationDate = 1997
                 },
-            //new Cosmetic(
-            //    name: "Увлажняющий крем для лица",
-            //    price: 899m,
-            //    expiryDate: new DateTime(2026, 12, 31),
-            //    volume: "50 мл",
-            //    type: "Уход за лицом"
-            //),
-            //new Cosmetic(
-            //    name: "Head & Shoulders Против перхоти",
-            //    price: 450m,
-            //    expiryDate: new DateTime(2027, 06, 30),
-            //    volume: "400 мл",
-            //    type: "Шампунь"
-            //),
-            //new Cosmetic(
-            //    name: "Color Sensational",
-            //    price: 680m,
-            //    expiryDate: new DateTime(2026, 03, 15),
-            //    volume: "4.2 г",
-            //    type: "Декоративная косметика"
-            //),
-            //new Cosmetic(
-            //    name: "Антиперспирант",
-            //    price: 320m,
-            //    expiryDate: new DateTime(2026, 08, 20),
-            //    volume: "50 мл",
-            //    type: "Гигиена"
-            //),
-            //new Cosmetic(
-            //    name: "Volume Million Lashes",
-            //    price: 1200m,
-            //    expiryDate: new DateTime(2026, 11, 01),
-            //    volume: "10 мл",
-            //    type: "Тушь для ресниц"
-            //),
+            new Cosmetic(
+                name: "Увлажняющий крем для лица",
+                price: 899m,
+                expiryDate: new DateTime(2026, 12, 31),
+                volume: "50 мл",
+                type: "Уход за лицом"
+            ),
+            new Cosmetic(
+                name: "Head & Shoulders Против перхоти",
+                price: 450m,
+                expiryDate: new DateTime(2027, 06, 30),
+                volume: "400 мл",
+                type: "Шампунь"
+            ),
+            new Cosmetic(
+                name: "Color Sensational",
+                price: 680m,
+                expiryDate: new DateTime(2026, 03, 15),
+                volume: "4.2 г",
+                type: "Декоративная косметика"
+            ),
+            new Cosmetic(
+                name: "Антиперспирант",
+                price: 320m,
+                expiryDate: new DateTime(2026, 08, 20),
+                volume: "50 мл",
+                type: "Гигиена"
+            ),
+            new Cosmetic(
+                name: "Volume Million Lashes",
+                price: 1200m,
+                expiryDate: new DateTime(2026, 11, 01),
+                volume: "10 мл",
+                type: "Тушь для ресниц"
+            ),
             //new Electronics(
             //    name: "Смартфон Samsung Galaxy S23",
             //    price: 89990m,
@@ -176,22 +176,22 @@ namespace eshop
             //        """
             //)
         };
-            //foreach (var prod in products)
-            //{
-            //    store.AddPosition(prod);
-            //}
+            foreach (var prod in products)
+            {
+                store.AddPosition(prod);
+            }
             Console.WriteLine(store.ToString());
-            store.PrintProdInfo();
-            store.PrintManufacturerInfo();
+            //store.PrintProdInfo();
+            //store.PrintManufacturerInfo();
             // Сохранение в файл
-            //store.SaveProductsToFile("products.json");
+            store.SaveProductsToFile("products.json");
 
             // Очистка списка (для демонстрации)
             //store.products.Clear();
 
             // Загрузка из файла
             store.LoadProductsFromFile("products.json");
-            store.AddPosition(new Book("Война и мир", 1500m, store.manufacturers[0], "Лев Толстой"));
+            //store.AddPosition(new Book("Война и мир", 1500m, store.manufacturers[0], "Лев Толстой"));
             store.SaveToFile("products.json", store.products);
             // Вывод загруженных товаров
             store.PrintProdInfo();
